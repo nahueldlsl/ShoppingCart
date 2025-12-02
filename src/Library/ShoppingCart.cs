@@ -75,16 +75,16 @@ namespace Ucu.Poo.eCommerce
                 }
             }
         }
+        private IDiscount discountcalculation = new NoDiscount();
 
+        public void Changediscount(IDiscount discount)
+        {
+            this.discountcalculation = discount;
+        }
         public double GetTotal()
         {
-            double result = 0.0;
-            foreach (CartItem item in this.items)
-            {
-                result += item.GetItemTotal();
-            }
 
-            return result;
+            return this.discountcalculation.CalculateTotal(this.items);
         }
     }
 }
